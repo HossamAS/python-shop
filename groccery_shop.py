@@ -1,14 +1,59 @@
 import os
-owner_name=0
-owner_pass=0
-customer={
-    "none":{"none":{"apple":0,"banana":0,"cherry":0},},
-}
-customer_name=0
-customer_pass=0
-shop={"apple":40,"banana":30,"cherry":70}
-costs={"apple":15,"banana":20,"cherry":10}
-bill={"total":0,"apple":0,"banana":0,"cherry":0}
+
+try:
+    customers=open("customers.txt","r")
+    customer=eval(customers.read())
+    customers.close()
+except  FileNotFoundError:
+    customers=open("customers.txt","w")
+    customers.write("{\"none\":{\"none\":{\"apple\":0,\"banana\":0,\"cherry\":0},},}")
+    customer={"none":{"none":{"apple":0,"banana":0,"cherry":0},},}
+    customers.close()
+try:
+    shops=open("shops.txt","r")
+    shop=eval(shops.read())
+    shops.close()
+except FileNotFoundError:
+     shops=open("shops.txt","w")
+     shops.write("{\"apple\":40,\"banana\":30,\"cherry\":70}")
+     shop={"apple":40,"banana":30,"cherry":70}
+     shops.close()
+try:
+    _costs=open("costs.txt","r")
+    costs=eval(_costs.read())
+    _costs.close()
+except FileNotFoundError:
+    _costs=open("costs.txt","w")
+    _costs.write("{\"apple\":15,\"banana\":20,\"cherry\":10}")
+    costs={"apple":15,"banana":20,"cherry":10}
+    _costs.close()
+try:
+    bills=open("bills.txt","r")
+    bill=eval(bills.read())
+    bills.close()
+except FileNotFoundError:
+    bills=open("bills.txt","w")
+    bills.write("{\"total\":0,\"apple\":0,\"banana\":0,\"cherry\":0}")
+    bill={"total":0,"apple":0,"banana":0,"cherry":0}
+    bills.close()
+
+  
+try:
+    owner_names=open("owner_names.txt","r")
+    owner_passes=open("owner_passes.txt","r")
+    owner_name=owner_names.read()
+    owner_pass=owner_passes.read()
+    owner_names=open("owner_names.txt","w")
+    owner_passes=open("owner_passes.txt","w")
+except FileNotFoundError:
+    owner_names=open("owner_names.txt","w")
+    owner_passes=open("owner_passes.txt","w")
+    owner_names.write("0")
+    owner_passes.write("0")
+    owner_name="0"
+    owner_pass="0"
+  
+
 while 1:
     bill_print=1
     os.system('cls')
@@ -25,6 +70,7 @@ while 1:
                     select=input("\nTo show our products press 1 ,\nTo Buy from our products press 2 ,\nto print the bill press 3 : ")
                     if select=='1':
                         print("shop : ",shop)
+                        input()
                     elif select=='2':
                         os.system('cls')
                         user_take=input("\nenter the product name and number of taken elements with separating space between them : ").split(" ")
@@ -51,7 +97,7 @@ while 1:
             print("there are no customer with the name : "+user_name)
        
     elif select=='2':
-        if owner_name==0:
+        if owner_name=="0":
               print("there are no owner ")
         else:
             os.system('cls')
@@ -95,7 +141,7 @@ while 1:
         os.system('cls')
         select=input("to exist customer press 1\nto exist owner press 2 :")
         if select=='2':
-           if owner_name==0:
+           if owner_name=="0":
               os.system('cls')
               owner_name=input("enter the owner name :")
               os.system('cls')
@@ -115,5 +161,24 @@ while 1:
         else:
             print("undefined option")   
     else:
-        print("undefined option")               
+        print("undefined option")   
+    customers=open("customers.txt","w")
+    shops=open("shops.txt","w")
+    _costs=open("costs.txt","w")
+    bills=open("bills.txt","w")
+    owner_names=open("owner_names.txt","w")
+    owner_passes=open("owner_passes.txt","w")
+    customers.write(str(customer))
+    shops.write(str(shop))
+    _costs.write(str(costs))
+    bills.write(str(bill))
+    owner_names.write(owner_name)
+    owner_passes.write(owner_pass) 
+    customers.close() 
+    shops.close()
+    _costs.close()
+    bills.close()
+    owner_names.close()
+    owner_passes.close()          
     input()
+    
